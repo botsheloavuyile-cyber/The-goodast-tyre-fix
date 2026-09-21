@@ -1,0 +1,92 @@
+index.htlm<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Goodast Tyre Fix</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="manifest" href="manifest.json">
+<style>
+body{font-family:Arial;margin:0;background:#111;color:#fff}
+.header{background:#FFD600;color:#000;padding:18px;text-align:center;font-weight:800;font-size:20px}
+.card{background:#1e1e1e;margin:12px;padding:16px;border-radius:16px}
+.sos{width:100%;background:#ff1a1a;color:#fff;border:none;padding:20px;border-radius:16px;font-size:20px;font-weight:800}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;margin-top:10px;font-weight:700;font-size:16px}
+.btn-call{background:#25D366} .btn-wa{background:#fff;color:#000}
+#map{height:320px;border-radius:16px;margin-top:12px}
+.small{color:#aaa;font-size:12px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="header">🛞 THE GOODAST TYRE FIX - 24/7 Highway Rescue</div>
+
+<div class="card">
+<h3 id="status">📍 Waiting for GPS...</h3>
+<p class="small" id="locText">Allow location to request help</p>
+<div id="map"></div>
+<button class="sos" onclick="requestHelp()">SOS - REQUEST TYRE FIX NOW</button>
+<button class="btn btn-call" onclick="callOwner()">📞 Call Owner</button>
+<button class="btn btn-wa" onclick="whatsappOwner()">💬 WhatsApp with Live Location</button>
+</div>
+
+<div class="card">
+<h4>Customer Details</h4>
+<input id="car" placeholder="Car type - e.g. Toyota Hilux" style="width:100%;padding:12px;border-radius:8px">
+<input id="tyre" placeholder="Tyre size / Problem" style="width:100%;padding:12px;border-radius:8px;margin-top:8px">
+</div>
+
+<div class="card small">
+Owner Mode: Add ?owner=goodast to your link to see all requests. This app works offline and can be installed.
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+let lat=-26.3, lng=29.46, map, marker, ownerMarker;
+let ownerLat = -26.292, ownerLng=29.467; // Bethal default
+
+function initMap(){
+ map = L.map('map').setView([lat,lng],13);
+ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+ marker = L.marker([lat,lng]).addTo(map).bindPopup("You are here");
+ ownerMarker = L.marker([ownerLat, ownerLng]).addTo(map).bindPopup("Goodast Rescue Team");
+}
+
+function updatePos(p){
+ lat=p.coords.latitude; lng=p.coords.longitude;
+ document.getElementById('status').innerText="✅ GPS Locked";
+ document.getElementById('locText').innerText=`Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)} - Ready to send`;
+ if(map){ map.setView([lat,lng],14); marker.setLatLng([lat,lng]); }
+}
+
+navigator.geolocation.watchPosition(updatePos, e=>{document.getElementById('status').innerText="❌ Enable GPS location"}, {enableHighAccuracy:true});
+initMap();
+
+function requestHelp(){
+ let car=document.getElementById('car').value||"Not specified";
+ let tyre=document.getElementById('tyre').value||"Tyre problem";
+ let gLink=`https://www.google.com/maps?q=${lat},${lng}`;
+ let msg=`🚨 TYRE FIX REQUEST - The Goodast\nCar: ${car}\nIssue: ${tyre}\nMy Location: ${gLink}\nLat: ${lat}, Lng: ${lng}\nPlease track me and come!`;
+ localStorage.setItem('lastRequest', JSON.stringify({lat,lng,car,tyre,time:Date.now()}));
+ alert("Request saved! Now sending to owner via WhatsApp...");
+ whatsappOwner();
+}
+
+function callOwner(){
+ window.location.href="tel:+27600000000"; // CHANGE TO YOUR NUMBER
+}
+
+function whatsappOwner(){
+ let gLink=`https://www.google.com/maps?q=${lat},${lng}`;
+ let msg=encodeURIComponent(`Hi Goodast Tyre Fix, I need help on the highway!\nLocation: ${gLink}\nCar: ${document.getElementById('car').value}`);
+ window.open(`https://wa.me/27600000000?text=${msg}`,'_blank'); // CHANGE TO YOUR NUMBER
+}
+
+// Owner tracking simulation - moves owner closer every 5 sec
+setInterval(()=>{
+ if(ownerLat<lat) ownerLat+=0.001; else ownerLat-=0.001;
+ if(ownerLng<lng) ownerLng+=0.001; else ownerLng-=0.001;
+ if(ownerMarker) ownerMarker.setLatLng([ownerLat,ownerLng]);
+},5000);
+</script>
+</body>
+</html>
