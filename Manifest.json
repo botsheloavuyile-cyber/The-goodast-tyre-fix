@@ -1,0 +1,9 @@
+{
+  "name": "The Goodast Tyre Fix",
+  "short_name": "Goodast",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#FFD600",
+  "icons": [{"src": "https://cdn-icons-png.flaticon.com/512/3774/3774083.png","sizes": "512x512","type": "image/png"}]
+}
