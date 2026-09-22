@@ -1,43 +1,28 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000"><title>THE GOODAST TYRE FIX</title><style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Arial}body{background:#0a0a0a}
-#splash{position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center}#splash img{width:90%} .ld{width:44px;height:44px;border:4px solid #222;border-top-color:#e10600;border-radius:50%;animation:sp 1s linear infinite;margin-top:16px}@keyframes sp{to{transform:rotate(360deg)}}
-.app{max-width:430px;margin:0 auto;background:#fff;min-height:100vh;position:relative;padding-bottom:90px;overflow:hidden;border-radius:0}
-.top{height:98px;background:#000;overflow:hidden;position:relative}.top img{width:100%;height:100%;object-fit:cover;object-position:center}
-.main{padding:18px;background:#fff;border-radius:18px 18px 0 0;margin-top:-14px;position:relative;z-index:2}
-.h1{font-size:22px;font-weight:800}.sub{color:#666;font-size:14px;margin-top:4px}
-.bub{max-width:78%;padding:12px 14px;border-radius:18px;font-size:14px;line-height:1.35;margin:8px 0;display:inline-block}.c1{background:#e9eaed;color:#111;border-bottom-left-radius:6px}.c2{background:#2563eb;color:#fff;border-bottom-right-radius:6px;float:right;clear:both}.row{overflow:hidden;padding:4px 0}
-.btn{width:100%;padding:15px;border-radius:12px;border:none;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0;cursor:pointer}.g{background:#16a34a;color:#fff}.b{background:#2563eb;color:#fff}
-.chatBox{display:flex;flex-direction:column}
-.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;justify-content:space-around;padding:12px 0 18px 0;border-top:1px solid #e5e7eb;z-index:10}.bottom div{display:flex;flex-direction:column;align-items:center;font-size:12px;font-weight:600;color:#6b7280;min-width:60px;cursor:pointer}.bottom div.active{color:#2563eb}
-.install{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:#e10600;color:#fff;padding:12px 20px;border-radius:24px;font-weight:800;z-index:9;box-shadow:0 4px 18px rgba(0,0,0,.4);display:none}
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000000"><title>THE GOODAST TYRE FIX</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}body{background:#000}
+#splash{position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center}#splash img{width:92%;max-width:400px;border-radius:10px}.ld{width:42px;height:42px;border:4px solid #222;border-top-color:#e10600;border-radius:50%;animation:r 1s linear infinite;margin-top:14px}@keyframes r{to{transform:rotate(360deg)}}
+.phone{max-width:420px;margin:0 auto;background:#f5f5f7;min-height:100vh;position:relative;padding-bottom:85px}
+.top{height:105px;background:#000;overflow:hidden}.top img{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
+.card{margin:12px;background:#fff;border-radius:22px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.welcome{font-size:21px;font-weight:800;color:#0f172a}.sub{font-size:14px;color:#64748b;margin-top:3px}
+.bubble{max-width:82%;padding:12px 14px;border-radius:18px;font-size:14.5px;line-height:1.35;display:inline-block;margin:6px 0}.gray{background:#e5e7eb;color:#111;border-bottom-left-radius:6px}.blue{background:#2563eb;color:#fff;border-bottom-right-radius:6px;float:right;clear:both}.row{overflow:hidden}
+.btn{width:100%;padding:15px;border-radius:14px;border:none;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;cursor:pointer}.green{background:#16a34a;color:#fff}.bluebtn{background:#2563eb;color:#fff}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:#fff;border-top:1px solid #e2e8f0;display:flex;justify-content:space-around;padding:10px 0 16px;z-index:20}.bottom span{display:flex;flex-direction:column;align-items:center;font-size:12px;font-weight:600;color:#64748b;gap:3px;cursor:pointer}.bottom span.active{color:#2563eb}
 </style></head><body>
-<div id="splash"><img src="banner.jpg"><div class="ld"></div><p style="color:#fff;margin-top:8px;font-weight:700;text-align:center">THE GOODAST TYRE FIX<br><small style="color:#e10600">Customer App Loading...</small></p></div>
-<div class="app" id="mainApp" style="display:none">
-<div class="top"><img src="banner.jpg" alt="banner"></div>
-<div class="main">
-<div class="h1">Welcome back, Alex 👋</div><div class="sub">How can we help you today?</div>
-<div class="chatBox" style="margin-top:16px">
-<div class="row"><span class="bub c1">Hi! I need a tyre fixed for my bakkie</span></div>
-<div class="row"><span class="bub c2">We found a quality second-hand tyre near you 👍</span></div>
-<div class="row"><span class="bub c1">Great! Can you share your location?</span></div>
-<div id="realChat"></div>
-</div>
-<button class="btn g" onclick="shareLoc()">📍 Share Location</button>
-<button class="btn b" onclick="goPay()">💳 Pay R350 Now</button>
-<div id="paySec" style="margin-top:12px;padding:12px;background:#f9fafb;border-radius:12px;border:1px solid #eee;display:none">
-<b>Pay to Capitec 0632957064</b><input id="amt" type="number" placeholder="R Amount" style="width:100%;padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px 0"><button class="btn b" style="margin:0" onclick="payNow()">Confirm Payment</button><div id="payMsg"></div></div>
+<div id="splash"><img src="banner.jpg"><div class="ld"></div><p style="color:#fff;margin-top:8px;font-weight:800;text-align:center">THE GOODAST TYRE FIX<br><small style="color:#e10600">Loading Customer App...</small></p></div>
+<div class="phone" id="app" style="display:none">
+<div class="top"><img src="banner.jpg"></div>
+<div class="card"><div class="welcome">Welcome back, Alex 👋</div><div class="sub">How can we help you today?</div>
+<div style="margin-top:14px"><div class="row"><span class="bubble gray">Hi! I need a tyre fixed for my bakkie</span></div><div class="row"><span class="bubble blue">We found a quality second-hand tyre near you 👍</span></div><div class="row"><span class="bubble gray">Great! Can you share your location?</span></div><div id="ch"></div></div>
+<button class="btn green" onclick="share()">📍 Share Location</button><button class="btn bluebtn" onclick="document.getElementById('pay').scrollIntoView()">💳 Pay R350 Now</button>
+<div id="pay" style="margin-top:14px;padding:12px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0"><b>Pay Direct to Capitec 0632957064</b><input id="amt" type="number" placeholder="Amount R" style="width:100%;padding:12px;border-radius:8px;border:1px solid #ddd;margin:8px 0"><button class="btn bluebtn" style="margin:0" onclick="pay()">Confirm Payment</button><div id="pm"></div></div>
 </div></div>
-<div class="bottom"><div class="active">🏠<br>Home</div><div onclick="document.querySelector('.chatBox').scrollIntoView()">💬<br>Chat</div><div onclick="shareLoc()">📍<br>Location</div><div onclick="location.href='business.html'">👤<br>Owner</div></div>
-<div id="installBtn" class="install" onclick="doInstall()">📲 Install App</div>
+<div class="bottom"><span class="active">🏠<br>Home</span><span onclick="document.querySelector('.card').scrollIntoView()">💬<br>Chat</span><span onclick="share()">📍<br>Location</span><span onclick="location.href='business.html'">👤<br>Owner</span></div>
 <script>
-let cid=localStorage.getItem('cid')||'cust_'+Date.now();localStorage.setItem('cid',cid);let dp=null;
-setTimeout(()=>{document.getElementById('splash').style.display='none';document.getElementById('mainApp').style.display='block';loadChat();setInterval(loadChat,2000)},1800);
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;document.getElementById('installBtn').style.display='block';});
-function doInstall(){if(dp){dp.prompt();dp.userChoice.then(r=>{if(r.outcome==='accepted')alert('✅ Installed! Check home screen!');dp=null;document.getElementById('installBtn').style.display='none';})}else alert('Tap Chrome ⋮ → Add to Home Screen');}
-function loadChat(){let msgs=JSON.parse(localStorage.getItem('chatMsgs')||'[]');let el=document.getElementById('realChat');el.innerHTML=msgs.map(m=>`<div class="row"><span class="bub ${m.from==='owner'?'c2':'c1'}">${m.text}</span></div>`).join('');}
-function addMsg(from,text){let arr=JSON.parse(localStorage.getItem('chatMsgs')||'[]');arr.push({from,text,t:Date.now()});localStorage.setItem('chatMsgs',JSON.stringify(arr.slice(-50)));loadChat();}
-function shareLoc(){if(!navigator.geolocation)return alert('Enable GPS');navigator.geolocation.getCurrentPosition(p=>{let link=`https://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}`;addMsg('customer',`📍 My location: <a href='${link}' target='_blank'>View Map</a>`);let locs=JSON.parse(localStorage.getItem('locs')||'[]');locs.unshift({lat:p.coords.latitude,lng:p.coords.longitude,t:new Date().toLocaleString(),cid});localStorage.setItem('locs',JSON.stringify(locs.slice(0,30)));alert('✅ Location sent to Owner!');});}
-function goPay(){document.getElementById('paySec').style.display='block';document.getElementById('paySec').scrollIntoView();}
-function payNow(){let a=document.getElementById('amt').value;if(!a)return;let pays=JSON.parse(localStorage.getItem('pays')||'[]');pays.unshift({amt:a,t:new Date().toLocaleString(),cid});localStorage.setItem('pays',JSON.stringify(pays));addMsg('customer',`💳 Paid R${a}`);document.getElementById('payMsg').innerHTML=`<b style=color:green>✅ R${a} sent to Owner!</b>`;}
+let cid=localStorage.getItem('cid')||'c_'+Date.now();localStorage.setItem('cid',cid);
+setTimeout(()=>{document.getElementById('splash').style.display='none';document.getElementById('app').style.display='block';load();setInterval(load,2000)},1500);
+function load(){let m=JSON.parse(localStorage.getItem('chat')||'[]');document.getElementById('ch').innerHTML=m.map(x=>`<div class=row><span class="bubble ${x.f=='o'?'blue':'gray'}">${x.t}</span></div>`).join('');}
+function share(){if(!navigator.geolocation)return alert('Enable GPS');navigator.geolocation.getCurrentPosition(p=>{let a=JSON.parse(localStorage.getItem('chat')||'[]');a.push({f:'c',t:`📍 My location: <a href='https://maps.google.com/?q=${p.coords.latitude},${p.coords.longitude}' target=_blank>View Map</a>`});localStorage.setItem('chat',JSON.stringify(a.slice(-30)));let l=JSON.parse(localStorage.getItem('locs')||'[]');l.unshift({lat:p.coords.latitude,lng:p.coords.longitude,t:new Date().toLocaleTimeString()});localStorage.setItem('locs',JSON.stringify(l.slice(0,20)));load();alert('✅ Location sent to Owner!');});}
+function pay(){let v=document.getElementById('amt').value;if(!v)return;let a=JSON.parse(localStorage.getItem('chat')||'[]');a.push({f:'c',t:`💳 Paid R${v}`});localStorage.setItem('chat',JSON.stringify(a.slice(-30)));let p=JSON.parse(localStorage.getItem('pays')||'[]');p.unshift({amt:v,t:new Date().toLocaleString()});localStorage.setItem('pays',JSON.stringify(p));document.getElementById('pm').innerHTML=`<b style=color:green>✅ R${v} sent!</b>`;load();}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script></body></html>
